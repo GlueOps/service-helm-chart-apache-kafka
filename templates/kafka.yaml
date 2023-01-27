@@ -34,7 +34,7 @@ spec:
       valueFrom:	
         configMapKeyRef:	
           key: kafka-metrics-config.yml	
-          name: kafka-metrics-{{ .Values.clusterName }}
+          name: kafka-metrics-{{ .Values.kafka.cluster_name }}
   kafkaExporter:	
     groupRegex: .*	
     topicRegex: .*
@@ -49,7 +49,7 @@ spec:
       valueFrom:	
         configMapKeyRef:	
           key: zookeeper-metrics-config.yml	
-          name: kafka-metrics-{{ .Values.clusterName }}
+          name: kafka-metrics-{{ .Values.kafka.cluster_name }}
   entityOperator:
     topicOperator: {}
     userOperator: {}
