@@ -4,7 +4,7 @@ metadata:
   annotations:
   labels:
     app: strimzi
-  name: kafka-metrics-{{ .Values.clusterName }}
+  name: kafka-metrics-{{ .Values.kafka.cluster_name }}
 data:
   kafka-metrics-config.yml: |
     # See https://github.com/prometheus/jmx_exporter for more info about JMX Prometheus Exporter metrics
