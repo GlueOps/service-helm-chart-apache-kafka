@@ -9,6 +9,5 @@ kafka:
   brokers: 3
   storage_size: 300Gi
 zookeeper:
-  version: 3.6.3
   replicas: 3
   storage_size: 100Gi

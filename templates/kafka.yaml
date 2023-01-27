@@ -39,7 +39,6 @@ spec:
     groupRegex: .*	
     topicRegex: .*
   zookeeper:
-    version: {{ .Values.zookeeper.version }}
     replicas: {{ .Values.zookeeper.replicas }}
     storage:
       type: persistent-claim
