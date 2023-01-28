@@ -2,11 +2,11 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: {{ .Values.clusterName }}
+  name: {{ .Values.kafka.cluster_name }}
 spec:
   kafka:
-    version: 3.3.1
-    replicas: 3
+    version: {{ .Values.kafka.version }}
+    replicas: {{ .Values.kafka.brokers }}
     listeners:
       - name: plain
         port: 9092
@@ -22,20 +22,34 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: "3.3"
     storage:
       type: jbod
       volumes:
       - id: 0
         type: persistent-claim
-        size: 500Gi
+        size: {{ .Values.kafka.storage_size }}
         deleteClaim: false
+    metricsConfig:	
+      type: jmxPrometheusExporter	
+      valueFrom:	
+        configMapKeyRef:	
+          key: kafka-metrics-config.yml	
+          name: kafka-metrics-{{ .Values.kafka.cluster_name }}
+  kafkaExporter:	
+    groupRegex: .*	
+    topicRegex: .*
   zookeeper:
-    replicas: 3
+    replicas: {{ .Values.zookeeper.replicas }}
     storage:
       type: persistent-claim
-      size: 100Gi
+      size: {{ .Values.zookeeper.storage_size }}
       deleteClaim: false
+    metricsConfig:	
+      type: jmxPrometheusExporter	
+      valueFrom:	
+        configMapKeyRef:	
+          key: zookeeper-metrics-config.yml	
+          name: kafka-metrics-{{ .Values.kafka.cluster_name }}
   entityOperator:
     topicOperator: {}
     userOperator: {}

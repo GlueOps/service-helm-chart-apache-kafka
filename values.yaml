@@ -1,6 +1,13 @@
-# Default values for hello-world.
-# This is a YAML-formatted file.
+# Default values for helloworld.
+# This is a YAMLformatted file.
 # Declare variables to be passed into your templates.
 
 
-clusterName: "kafka-cluster"
+kafka:
+  cluster_name: "kafkaclustername"
+  version: 3.3.2
+  brokers: 3
+  storage_size: 300Gi
+zookeeper:
+  replicas: 3
+  storage_size: 100Gi
